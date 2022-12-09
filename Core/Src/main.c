@@ -24,6 +24,9 @@
 /* USER CODE BEGIN Includes */
 #include "scheduler.h"
 #include "global.h"
+#include "fsm_automatic.h"
+#include "pedestrian.h"
+#include "fsm_system.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,8 +88,8 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
-  HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -94,7 +97,9 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
+  SCH_Init();
+  SCH_Add_Task(fsm_automatic_run, 0, 1000);
+  SCH_Add_Task(pedestrian_run, 0, 1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,8 +107,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
+	  RunSystem();
+	  SCH_Dispatch_Task();
   }
   /* USER CODE END 3 */
 }
@@ -159,7 +165,6 @@ static void MX_TIM2_Init(void)
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
-  TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM2_Init 1 */
 
@@ -179,28 +184,15 @@ static void MX_TIM2_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
-  HAL_TIM_MspPostInit(&htim2);
 
 }
 
@@ -218,16 +210,17 @@ static void MX_TIM3_Init(void)
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM3_Init 1 */
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 63999;
+  htim3.Init.Prescaler = 63;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 10;
+  htim3.Init.Period = 999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
     Error_Handler();
@@ -237,15 +230,28 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN TIM3_Init 2 */
 
   /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
 
 }
 
@@ -263,12 +269,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_POWER_Pin|LED_RED_ROW_Pin|LED_YELLOW_ROW_Pin|LED_GREEN_ROW_Pin
-                          |LED_RED_COL_Pin|LED_YELLOW_COL_Pin|LED_GREEN_COL_Pin|LED_PES_RED_R_Pin
-                          |LED_PES_GREEN_R_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PES_BUTTON_Pin|TL1_A_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED_PES_RED_C_Pin|LED_PES_GREEN_C_Pin|BUZ_PES_COL_Pin|BUZ_PES_ROW_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PL_A_Pin|TL1_B_Pin|TL2_B_Pin|TL2_A_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PES_BUTTON_Pin TL1_A_Pin */
+  GPIO_InitStruct.Pin = PES_BUTTON_Pin|TL1_A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : BUTTON1_Pin BUTTON2_Pin PL_B_Pin */
+  GPIO_InitStruct.Pin = BUTTON1_Pin|BUTTON2_Pin|PL_B_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : UART_TX_Pin */
   GPIO_InitStruct.Pin = UART_TX_Pin;
@@ -282,25 +299,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(UART_RX_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED_POWER_Pin LED_RED_ROW_Pin LED_YELLOW_ROW_Pin LED_GREEN_ROW_Pin
-                           LED_RED_COL_Pin LED_YELLOW_COL_Pin LED_GREEN_COL_Pin LED_PES_RED_R_Pin
-                           LED_PES_GREEN_R_Pin */
-  GPIO_InitStruct.Pin = LED_POWER_Pin|LED_RED_ROW_Pin|LED_YELLOW_ROW_Pin|LED_GREEN_ROW_Pin
-                          |LED_RED_COL_Pin|LED_YELLOW_COL_Pin|LED_GREEN_COL_Pin|LED_PES_RED_R_Pin
-                          |LED_PES_GREEN_R_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : BUTTON1_Pin BUTTON2_Pin BUTTON3_Pin PES_BUTTON_Pin */
-  GPIO_InitStruct.Pin = BUTTON1_Pin|BUTTON2_Pin|BUTTON3_Pin|PES_BUTTON_Pin;
+  /*Configure GPIO pin : BUTTON3_Pin */
+  GPIO_InitStruct.Pin = BUTTON3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(BUTTON3_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED_PES_RED_C_Pin LED_PES_GREEN_C_Pin BUZ_PES_COL_Pin BUZ_PES_ROW_Pin */
-  GPIO_InitStruct.Pin = LED_PES_RED_C_Pin|LED_PES_GREEN_C_Pin|BUZ_PES_COL_Pin|BUZ_PES_ROW_Pin;
+  /*Configure GPIO pins : PL_A_Pin TL1_B_Pin TL2_B_Pin TL2_A_Pin */
+  GPIO_InitStruct.Pin = PL_A_Pin|TL1_B_Pin|TL2_B_Pin|TL2_A_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

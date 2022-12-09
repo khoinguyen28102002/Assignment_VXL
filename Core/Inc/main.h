@@ -60,44 +60,32 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define PES_BUTTON_Pin GPIO_PIN_0
+#define PES_BUTTON_GPIO_Port GPIOA
+#define BUTTON1_Pin GPIO_PIN_1
+#define BUTTON1_GPIO_Port GPIOA
 #define UART_TX_Pin GPIO_PIN_2
 #define UART_TX_GPIO_Port GPIOA
 #define UART_RX_Pin GPIO_PIN_3
 #define UART_RX_GPIO_Port GPIOA
-#define LED_POWER_Pin GPIO_PIN_4
-#define LED_POWER_GPIO_Port GPIOA
-#define LED_RED_ROW_Pin GPIO_PIN_5
-#define LED_RED_ROW_GPIO_Port GPIOA
-#define LED_YELLOW_ROW_Pin GPIO_PIN_6
-#define LED_YELLOW_ROW_GPIO_Port GPIOA
-#define LED_GREEN_ROW_Pin GPIO_PIN_7
-#define LED_GREEN_ROW_GPIO_Port GPIOA
-#define BUTTON1_Pin GPIO_PIN_0
-#define BUTTON1_GPIO_Port GPIOB
-#define BUTTON2_Pin GPIO_PIN_1
-#define BUTTON2_GPIO_Port GPIOB
-#define BUTTON3_Pin GPIO_PIN_2
+#define BUTTON2_Pin GPIO_PIN_4
+#define BUTTON2_GPIO_Port GPIOA
+#define PB_Pin GPIO_PIN_6
+#define PB_GPIO_Port GPIOA
+#define BUTTON3_Pin GPIO_PIN_0
 #define BUTTON3_GPIO_Port GPIOB
-#define LED_RED_COL_Pin GPIO_PIN_8
-#define LED_RED_COL_GPIO_Port GPIOA
-#define LED_YELLOW_COL_Pin GPIO_PIN_9
-#define LED_YELLOW_COL_GPIO_Port GPIOA
-#define LED_GREEN_COL_Pin GPIO_PIN_10
-#define LED_GREEN_COL_GPIO_Port GPIOA
-#define LED_PES_RED_R_Pin GPIO_PIN_11
-#define LED_PES_RED_R_GPIO_Port GPIOA
-#define LED_PES_GREEN_R_Pin GPIO_PIN_12
-#define LED_PES_GREEN_R_GPIO_Port GPIOA
-#define PES_BUTTON_Pin GPIO_PIN_3
-#define PES_BUTTON_GPIO_Port GPIOB
-#define LED_PES_RED_C_Pin GPIO_PIN_4
-#define LED_PES_RED_C_GPIO_Port GPIOB
-#define LED_PES_GREEN_C_Pin GPIO_PIN_5
-#define LED_PES_GREEN_C_GPIO_Port GPIOB
-#define BUZ_PES_COL_Pin GPIO_PIN_6
-#define BUZ_PES_COL_GPIO_Port GPIOB
-#define BUZ_PES_ROW_Pin GPIO_PIN_7
-#define BUZ_PES_ROW_GPIO_Port GPIOB
+#define PL_A_Pin GPIO_PIN_10
+#define PL_A_GPIO_Port GPIOB
+#define PL_B_Pin GPIO_PIN_8
+#define PL_B_GPIO_Port GPIOA
+#define TL1_A_Pin GPIO_PIN_10
+#define TL1_A_GPIO_Port GPIOA
+#define TL1_B_Pin GPIO_PIN_3
+#define TL1_B_GPIO_Port GPIOB
+#define TL2_B_Pin GPIO_PIN_4
+#define TL2_B_GPIO_Port GPIOB
+#define TL2_A_Pin GPIO_PIN_5
+#define TL2_A_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

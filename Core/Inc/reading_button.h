@@ -8,6 +8,8 @@
 #ifndef INC_READING_BUTTON_H_
 #define INC_READING_BUTTON_H_
 
+#define PORTA	GPIOA
+#define PORTB	GPIOB
 #define NORMAL_STATE 					SET
 #define PRESSED_STATE 					RESET
 #define NUM_OF_BUTTON 					4

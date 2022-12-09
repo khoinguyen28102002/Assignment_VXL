@@ -5,8 +5,11 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/fsm_automatic.c \
+../Core/Src/fsm_system.c \
 ../Core/Src/global.c \
 ../Core/Src/main.c \
+../Core/Src/pedestrian.c \
 ../Core/Src/reading_button.c \
 ../Core/Src/scheduler.c \
 ../Core/Src/setting_led.c \
@@ -14,11 +17,15 @@ C_SRCS += \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
-../Core/Src/system_stm32f1xx.c 
+../Core/Src/system_stm32f1xx.c \
+../Core/Src/traffic.c 
 
 OBJS += \
+./Core/Src/fsm_automatic.o \
+./Core/Src/fsm_system.o \
 ./Core/Src/global.o \
 ./Core/Src/main.o \
+./Core/Src/pedestrian.o \
 ./Core/Src/reading_button.o \
 ./Core/Src/scheduler.o \
 ./Core/Src/setting_led.o \
@@ -26,11 +33,15 @@ OBJS += \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
-./Core/Src/system_stm32f1xx.o 
+./Core/Src/system_stm32f1xx.o \
+./Core/Src/traffic.o 
 
 C_DEPS += \
+./Core/Src/fsm_automatic.d \
+./Core/Src/fsm_system.d \
 ./Core/Src/global.d \
 ./Core/Src/main.d \
+./Core/Src/pedestrian.d \
 ./Core/Src/reading_button.d \
 ./Core/Src/scheduler.d \
 ./Core/Src/setting_led.d \
@@ -38,7 +49,8 @@ C_DEPS += \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
-./Core/Src/system_stm32f1xx.d 
+./Core/Src/system_stm32f1xx.d \
+./Core/Src/traffic.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

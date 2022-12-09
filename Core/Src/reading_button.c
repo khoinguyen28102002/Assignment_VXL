@@ -21,16 +21,16 @@ void ReadingButton(){
 		  KeyReg1[i] = KeyReg0[i];
 		  switch (i) {
 			case 0:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(GPIOB, BUTTON1_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTA, BUTTON1_Pin);
 				break;
 			case 1:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(GPIOB, BUTTON2_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTA, BUTTON2_Pin);
 				break;
 			case 2:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(GPIOB, BUTTON3_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTB, BUTTON3_Pin);
 				break;
 			case 3:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(GPIOB, PES_BUTTON_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTA, PES_BUTTON_Pin);
 				break;
 			default:
 				break;
