@@ -14,13 +14,9 @@ int time_yellow;
 int time_green;
 int time_ped;
 // counter array for each led in row
-int count_red1;
-int count_yellow1;
-int count_green1;
+int count1;
 // counter array for each led in column
-int count_red2;
-int count_yellow2;
-int count_green2;
+int count2;
 
 int status1; // status of traffic light in row
 int status2; // status of traffic light in column

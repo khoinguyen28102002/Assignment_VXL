@@ -22,6 +22,10 @@ void RunSystem(){
 				status = MANUAL_MODE;
 				turnOffAllLed();
 			}
+			if(Button4IsPressed()){
+				status = PEDES_MODE;
+				turnOffAllLed1();
+			}
 			break;
 		case MANUAL_MODE:
 			if(Button1IsPressed()){ // If button1 is pressed, turn to MODIFY RED MODE status
@@ -36,14 +40,8 @@ void RunSystem(){
 			}
 			break;
 		case PEDES_MODE:
-			count_red1 = time_red;
-			count_yellow1 = time_yellow;
-			int count_pes_buzzer = 0;
-//			if(!(count_pes_buzzer%1000) && (count_pes_buzzer < time_red*1000)){
-//				__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, count_pes_buzzer/1000);
-//			}else{
-//				count_pes_buzzer++;
-//			}
+			count1 = time_red;
+			status1 = YELLOW1;
 			break;
 		default:
 			break;

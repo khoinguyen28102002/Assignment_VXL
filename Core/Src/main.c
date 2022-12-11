@@ -110,6 +110,13 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  RunSystem();
 	  SCH_Dispatch_Task();
+//	  if(status == PEDES_MODE){
+//		  if(!(count_pes_buzzer%1000) && (count_pes_buzzer < 50000)){
+//			  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, count_pes_buzzer/1000);
+//		  }else{
+//			count_pes_buzzer++;
+//		  }
+//	  }
   }
   /* USER CODE END 3 */
 }

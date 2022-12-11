@@ -11,15 +11,44 @@
 
 void pedestrian_run(){
 	if(status == PEDES_MODE){
-		turnOnPesGreenLed();
-		count_red1--;
 		uint32_t index;
-		if(count_red1 == 5){
-			index = SCH_Add_Task(BlinkyPesGreenLed, 0, 1000);
+		switch (status1) {
+			case YELLOW1:
+				if(count1 == 0){
+					status1 = RED1;
+					status2 = GREEN2;
+					turnOnPesGreenLed();
+					count1 = time_red;
+				}
+				else{
+					turnOnYellowLed1();
+					turnOnPesRedLed();
+				}
+				if(status2 != RED2){
+					turnOnGreenLed2();
+				}
+				break;
+			case RED1:
+				if(count1 == 5){
+					index = SCH_Add_Task(BlinkyPesGreenLed, 0, 500);
+					turnOnYellowLed2();
+				}
+				if(count1 == 0){
+					SCH_Remove_Task(index);
+					turnOnPesRedLed();
+					status1 = GREEN1;
+					status2 = RED2;
+					count1 = time_green;
+					count2 = time_red;
+					status = AUTOMATIC_MODE;
+				}
+				else{
+					turnOnRedLed1();
+					turnOnGreenLed2();
+				}
+			default:
+				break;
 		}
-		if(count_red1 == 0){
-			turnOnPesRedLed();
-			SCH_Remove_Task(index);
-		}
+		count1--;
 	}
 }
