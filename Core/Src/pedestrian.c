@@ -7,11 +7,10 @@
 
 #include "global.h"
 #include "pedestrian.h"
-#include "scheduler.h"
 
 void pedestrian_run(){
 	if(status == PEDES_MODE){
-		uint32_t index;
+//		uint32_t index;
 		switch (status1) {
 			case YELLOW1:
 				if(count1 == 0){
@@ -29,12 +28,14 @@ void pedestrian_run(){
 				}
 				break;
 			case RED1:
-				if(count1 == 5){
-					index = SCH_Add_Task(BlinkyPesGreenLed, 0, 500);
+				if(count1 == time_yellow){
+					if(timer3_flag == 1){
+						BlinkyPesGreenLed();
+						setTimer3(500);
+					}
 					turnOnYellowLed2();
 				}
 				if(count1 == 0){
-					SCH_Remove_Task(index);
 					turnOnPesRedLed();
 					status1 = GREEN1;
 					status2 = RED2;

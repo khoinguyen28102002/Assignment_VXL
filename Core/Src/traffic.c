@@ -10,14 +10,14 @@
 #include "main.h"
 
 // initialize random time value for each traffic light
-int time_red = 0;
-int time_yellow = 0;
-int time_green = 0;
-
+int time_red = 8;
+int time_yellow = 5;
+int time_green = 3;
 //initialize countdown value for each traffic light
 int count1= 0;
 int count2 = 0;
 int time_pes = 5;
+int count_ped_buzzer = 0;
 void init_traffic_light(){
 	turnOffAllLed();
 	status1 = RED1;

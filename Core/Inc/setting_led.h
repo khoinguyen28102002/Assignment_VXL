@@ -11,6 +11,7 @@
 #define PORTA	GPIOA
 #define PORTB	GPIOB
 void turnOnRedLed1();
+void testLed();
 void turnOnYellowLed1();
 void turnOnGreenLed1();
 void turnOffAllLed1();
@@ -23,4 +24,8 @@ void turnOnPesGreenLed();
 void turnOffAllPesLed();
 void turnOffAllLed();
 void BlinkyPesGreenLed();
+void BlinkyAllRedLed();
+void BlinkyAllYellowLed();
+void BlinkyAllRedLed();
+
 #endif /* INC_SETTING_LED_H_ */

@@ -12,6 +12,7 @@
 #include "reading_button.h"
 #include "traffic.h"
 #include "stdint.h"
+#include "software_timer.h"
 
 #define INIT				1
 #define AUTOMATIC_MODE 		2
@@ -26,9 +27,10 @@
 #define GREEN2				10
 #define YELLOW2				11
 
-#define MANUAL_RED_MODE		12
-#define MANUAL_YELLOW_MODE	13
-#define MANUAL_GREEN_MODE	14
+#define MANUAL_1			12
+#define MANUAL_2			13
+#define MANUAL_3			14
+#define MANUAL_4			18
 
 #define TUNING_RED_MODE		15
 #define TUNING_YELLOW_MODE	16

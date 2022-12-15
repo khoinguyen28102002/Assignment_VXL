@@ -22,7 +22,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "scheduler.h"
 #include "global.h"
 #include "fsm_automatic.h"
 #include "pedestrian.h"
@@ -88,8 +87,6 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -97,26 +94,25 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  SCH_Init();
-  SCH_Add_Task(fsm_automatic_run, 0, 1000);
-  SCH_Add_Task(pedestrian_run, 0, 1000);
+  status = INIT;
+
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer1(500);
   while (1)
   {
     /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
 	  RunSystem();
-	  SCH_Dispatch_Task();
-//	  if(status == PEDES_MODE){
-//		  if(!(count_pes_buzzer%1000) && (count_pes_buzzer < 50000)){
-//			  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, count_pes_buzzer/1000);
-//		  }else{
-//			count_pes_buzzer++;
-//		  }
-//	  }
+	  if(status == PEDES_MODE && timer3_flag){
+		  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, count_ped_buzzer);
+		  count_ped_buzzer++;
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -179,9 +175,9 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 63999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10;
+  htim2.Init.Period = 9;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -276,13 +272,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, PES_BUTTON_Pin|TL1_A_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PES_BUTTON_Pin|LED_Pin|TL1_A_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, PL_A_Pin|TL1_B_Pin|TL2_B_Pin|TL2_A_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PES_BUTTON_Pin TL1_A_Pin */
-  GPIO_InitStruct.Pin = PES_BUTTON_Pin|TL1_A_Pin;
+  /*Configure GPIO pins : PES_BUTTON_Pin LED_Pin TL1_A_Pin */
+  GPIO_InitStruct.Pin = PES_BUTTON_Pin|LED_Pin|TL1_A_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -323,7 +319,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim){
-	SCH_Update();
+	timerRun();
 	ReadingButton();
 }
 /* USER CODE END 4 */

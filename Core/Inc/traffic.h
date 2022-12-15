@@ -17,8 +17,11 @@ int time_ped;
 int count1;
 // counter array for each led in column
 int count2;
-
-int status1; // status of traffic light in row
-int status2; // status of traffic light in column
+// counter for pedestrian buzzer
+int count_ped_buzzer;
+int status1; // status of traffic light in phase 1
+int status2; // status of traffic light in phase 2
+int status_manual;
+int status_tuning;
 void init_traffic_light();
 #endif /* INC_TRAFFIC_H_ */

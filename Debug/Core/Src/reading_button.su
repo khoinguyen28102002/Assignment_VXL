@@ -3,4 +3,4 @@ reading_button.c:67:5:isButtonPress	16	static
 reading_button.c:75:5:Button1IsPressed	8	static
 reading_button.c:78:5:Button2IsPressed	8	static
 reading_button.c:81:5:Button3IsPressed	8	static
-reading_button.c:84:5:PesButtionIsPressed	8	static
+reading_button.c:84:5:PesButtonIsPressed	8	static

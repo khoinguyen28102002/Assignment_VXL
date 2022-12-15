@@ -1,6 +1,7 @@
 Core/Src/traffic.o: ../Core/Src/traffic.c ../Core/Inc/traffic.h \
  ../Core/Inc/global.h ../Core/Inc/setting_led.h \
- ../Core/Inc/reading_button.h ../Core/Inc/traffic.h ../Core/Inc/main.h \
+ ../Core/Inc/reading_button.h ../Core/Inc/traffic.h \
+ ../Core/Inc/software_timer.h ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -35,6 +36,8 @@ Core/Src/traffic.o: ../Core/Src/traffic.c ../Core/Inc/traffic.h \
 ../Core/Inc/reading_button.h:
 
 ../Core/Inc/traffic.h:
+
+../Core/Inc/software_timer.h:
 
 ../Core/Inc/main.h:
 

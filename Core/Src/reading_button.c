@@ -81,6 +81,6 @@ int Button2IsPressed(){
 int Button3IsPressed(){
 	return isButtonPress(2);
 }
-int PesButtionIsPressed(){
+int PesButtonIsPressed(){
 	return isButtonPress(3);
 }

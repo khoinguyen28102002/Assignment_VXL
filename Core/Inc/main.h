@@ -70,6 +70,8 @@ void Error_Handler(void);
 #define UART_RX_GPIO_Port GPIOA
 #define BUTTON2_Pin GPIO_PIN_4
 #define BUTTON2_GPIO_Port GPIOA
+#define LED_Pin GPIO_PIN_5
+#define LED_GPIO_Port GPIOA
 #define PB_Pin GPIO_PIN_6
 #define PB_GPIO_Port GPIOA
 #define BUTTON3_Pin GPIO_PIN_0
