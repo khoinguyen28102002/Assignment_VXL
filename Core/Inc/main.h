@@ -38,6 +38,10 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+extern UART_HandleTypeDef huart2;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
