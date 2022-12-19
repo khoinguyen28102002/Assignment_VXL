@@ -10,7 +10,7 @@
 
 void pedestrian_run(){
 	if(status == PEDES_MODE){
-//		uint32_t index;
+		sendDATA();
 		switch (status1) {
 			case YELLOW1:
 				if(count1 == 0){
@@ -28,24 +28,22 @@ void pedestrian_run(){
 				}
 				break;
 			case RED1:
+				if(count1 > time_yellow){
+					turnOnRedLed1();
+					turnOnGreenLed2();
+				}
 				if(count1 == time_yellow){
-					if(timer3_flag == 1){
-						BlinkyPesGreenLed();
-						setTimer3(500);
-					}
+					setTimer3(100);
+					turnOnRedLed1();
 					turnOnYellowLed2();
 				}
-				if(count1 == 0){
+				if(count1 <= 0){
 					turnOnPesRedLed();
 					status1 = GREEN1;
 					status2 = RED2;
 					count1 = time_green;
 					count2 = time_red;
 					status = AUTOMATIC_MODE;
-				}
-				else{
-					turnOnRedLed1();
-					turnOnGreenLed2();
 				}
 			default:
 				break;

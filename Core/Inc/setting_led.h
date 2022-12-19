@@ -26,6 +26,6 @@ void turnOffAllLed();
 void BlinkyPesGreenLed();
 void BlinkyAllRedLed();
 void BlinkyAllYellowLed();
-void BlinkyAllRedLed();
+void BlinkyAllGreenLed();
 
 #endif /* INC_SETTING_LED_H_ */

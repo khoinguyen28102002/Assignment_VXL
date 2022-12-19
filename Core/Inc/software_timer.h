@@ -17,10 +17,13 @@ int timer2_flag;
 int timer2_counter;
 int timer3_flag;
 int timer3_counter;
+int timer4_flag;
+int timer4_counter;
 
 void setTimer1(int duration);
 void setTimer2(int duration);
 void setTimer3(int duration);
+void setTimer4(int duration);
 void timerRun();
 
 

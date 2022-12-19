@@ -11,11 +11,27 @@
 #include "traffic.h"
 
 void fsm_manual_run(){
+	if(timer3_flag){
+		sendDATA_Manual();
+	}
 	switch (status_manual) {
+		case MANUAL_0:
+			if(status1 == RED1 && status2 == GREEN2){
+				status_manual = MANUAL_2;
+			}
+			else if(status1 == RED1 && status2 == YELLOW2){
+				status_manual = MANUAL_1;
+			}
+			else if(status1 == RED2 && status2 == GREEN1){
+				status_manual = MANUAL_4;
+			}
+			else if(status1 == RED2 && status2 == YELLOW1){
+				status_manual = MANUAL_3;
+			}
 		case MANUAL_1:
 			turnOnRedLed1();
 			turnOnYellowLed2();
-			turnOffAllPesLed();
+			turnOnPesGreenLed();
 			if(Button2IsPressed()){
 				status_manual = MANUAL_2;
 				turnOffAllLed();
@@ -35,7 +51,7 @@ void fsm_manual_run(){
 			turnOnYellowLed1();
 			turnOnPesRedLed();
 			if(Button2IsPressed()){
-				status_manual = MANUAL_3;
+				status_manual = MANUAL_4;
 				turnOffAllLed();
 			}
 			break;
@@ -54,5 +70,6 @@ void fsm_manual_run(){
 	if(Button3IsPressed()){
 		status = AUTOMATIC_MODE;
 		turnOffAllLed();
+		setTimer2(100);
 	}
 }

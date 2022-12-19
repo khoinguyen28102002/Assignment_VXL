@@ -5,6 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/UART.c \
 ../Core/Src/fsm_automatic.c \
 ../Core/Src/fsm_manual.c \
 ../Core/Src/fsm_system.c \
@@ -23,6 +24,7 @@ C_SRCS += \
 ../Core/Src/traffic.c 
 
 OBJS += \
+./Core/Src/UART.o \
 ./Core/Src/fsm_automatic.o \
 ./Core/Src/fsm_manual.o \
 ./Core/Src/fsm_system.o \
@@ -41,6 +43,7 @@ OBJS += \
 ./Core/Src/traffic.o 
 
 C_DEPS += \
+./Core/Src/UART.d \
 ./Core/Src/fsm_automatic.d \
 ./Core/Src/fsm_manual.d \
 ./Core/Src/fsm_system.d \

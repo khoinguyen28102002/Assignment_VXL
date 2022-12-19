@@ -20,7 +20,7 @@ void RunSystem(){
 		case INIT:
 			init_traffic_light();
 			status = AUTOMATIC_MODE;
-			setTimer2(500);
+			setTimer2(100);
 			break;
 		case AUTOMATIC_MODE:
 			if(timer2_flag){
@@ -29,14 +29,15 @@ void RunSystem(){
 			}
 			if(Button1IsPressed()){
 				status = MANUAL_MODE;
+				status_manual = MANUAL_0;
+				setTimer3(100);
 				turnOffAllLed();
 			}
-			if(PesButtonIsPressed()){
-				count1 = time_red;
+			if(PesButtonIsPressed() && status1 == GREEN1 && status2 == RED2){
+				count1 = time_yellow;
 				status1 = YELLOW1;
 				status = PEDES_MODE;
-				setTimer2(500);
-				setTimer3(time_yellow*1000);
+				setTimer2(100);
 				turnOffAllLed1();
 			}
 			break;
@@ -44,7 +45,7 @@ void RunSystem(){
 			fsm_manual_run();
 			if(Button1IsPressed()){
 				status = TUNING_MODE;
-//				setTimer2(1000);
+				setTimer3(100);
 				turnOffAllLed();
 			}
 			break;

@@ -1,6 +1,6 @@
 Core/Src/fsm_system.o: ../Core/Src/fsm_system.c ../Core/Inc/global.h \
  ../Core/Inc/setting_led.h ../Core/Inc/reading_button.h \
- ../Core/Inc/traffic.h ../Core/Inc/software_timer.h \
+ ../Core/Inc/traffic.h ../Core/Inc/software_timer.h ../Core/Inc/UART.h \
  ../Core/Inc/fsm_system.h ../Core/Inc/fsm_automatic.h \
  ../Core/Inc/global.h ../Core/Inc/fsm_manual.h ../Core/Inc/fsm_tuning.h \
  ../Core/Inc/pedestrian.h ../Core/Inc/reading_button.h ../Core/Inc/main.h \
@@ -27,7 +27,8 @@ Core/Src/fsm_system.o: ../Core/Src/fsm_system.c ../Core/Inc/global.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 
 ../Core/Inc/global.h:
 
@@ -38,6 +39,8 @@ Core/Src/fsm_system.o: ../Core/Src/fsm_system.c ../Core/Inc/global.h \
 ../Core/Inc/traffic.h:
 
 ../Core/Inc/software_timer.h:
+
+../Core/Inc/UART.h:
 
 ../Core/Inc/fsm_system.h:
 
@@ -102,3 +105,5 @@ Core/Src/fsm_system.o: ../Core/Src/fsm_system.c ../Core/Inc/global.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
+
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:

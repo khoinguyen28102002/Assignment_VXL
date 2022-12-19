@@ -8,10 +8,9 @@
 #ifndef INC_UART_H_
 #define INC_UART_H_
 
-#include "global.h"
 
 void sendDATA();
 void sendVALUE_SETTING();
-
+void sendDATA_Manual();
 
 #endif /* INC_UART_H_ */
