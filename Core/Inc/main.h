@@ -64,34 +64,34 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define PES_BUTTON_Pin GPIO_PIN_0
-#define PES_BUTTON_GPIO_Port GPIOA
-#define BUTTON1_Pin GPIO_PIN_1
-#define BUTTON1_GPIO_Port GPIOA
+#define A0_Pin GPIO_PIN_0
+#define A0_GPIO_Port GPIOA
+#define A1_Pin GPIO_PIN_1
+#define A1_GPIO_Port GPIOA
 #define UART_TX_Pin GPIO_PIN_2
 #define UART_TX_GPIO_Port GPIOA
 #define UART_RX_Pin GPIO_PIN_3
 #define UART_RX_GPIO_Port GPIOA
-#define BUTTON2_Pin GPIO_PIN_4
-#define BUTTON2_GPIO_Port GPIOA
+#define A2_Pin GPIO_PIN_4
+#define A2_GPIO_Port GPIOA
 #define LED_Pin GPIO_PIN_5
 #define LED_GPIO_Port GPIOA
-#define PB_Pin GPIO_PIN_6
-#define PB_GPIO_Port GPIOA
-#define BUTTON3_Pin GPIO_PIN_0
-#define BUTTON3_GPIO_Port GPIOB
-#define PL_A_Pin GPIO_PIN_10
-#define PL_A_GPIO_Port GPIOB
-#define PL_B_Pin GPIO_PIN_8
-#define PL_B_GPIO_Port GPIOA
-#define TL1_A_Pin GPIO_PIN_10
-#define TL1_A_GPIO_Port GPIOA
-#define TL1_B_Pin GPIO_PIN_3
-#define TL1_B_GPIO_Port GPIOB
-#define TL2_B_Pin GPIO_PIN_4
-#define TL2_B_GPIO_Port GPIOB
-#define TL2_A_Pin GPIO_PIN_5
-#define TL2_A_GPIO_Port GPIOB
+#define TIM3_CH1_Pin GPIO_PIN_6
+#define TIM3_CH1_GPIO_Port GPIOA
+#define A3_Pin GPIO_PIN_0
+#define A3_GPIO_Port GPIOB
+#define D6_Pin GPIO_PIN_10
+#define D6_GPIO_Port GPIOB
+#define D7_Pin GPIO_PIN_8
+#define D7_GPIO_Port GPIOA
+#define D2_Pin GPIO_PIN_10
+#define D2_GPIO_Port GPIOA
+#define D3_Pin GPIO_PIN_3
+#define D3_GPIO_Port GPIOB
+#define D5_Pin GPIO_PIN_4
+#define D5_GPIO_Port GPIOB
+#define D4_Pin GPIO_PIN_5
+#define D4_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

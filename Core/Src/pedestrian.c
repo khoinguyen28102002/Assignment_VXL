@@ -9,45 +9,61 @@
 #include "pedestrian.h"
 
 void pedestrian_run(){
-	if(status == PEDES_MODE){
 		sendDATA();
-		switch (status1) {
-			case YELLOW1:
-				if(count1 == 0){
-					status1 = RED1;
-					status2 = GREEN2;
-					turnOnPesGreenLed();
-					count1 = time_red;
-				}
-				else{
-					turnOnYellowLed1();
-					turnOnPesRedLed();
-				}
-				if(status2 != RED2){
-					turnOnGreenLed2();
+		switch (status_pedestrian) {
+			case PEDES_0:
+				status_pedestrian = PEDES_1;
+				status_auto = YELLOW1_RED2;
+				time_yellow = _time_yellow;
+				time_red = _time_red;
+				break;
+			case PEDES_1:
+				turnOnYellowLed1();
+				turnOnRedLed2();
+				turnOnPesRedLed();
+				timeOfPhase1 = time_yellow;
+				timeOfPhase2 = time_yellow;
+				sendDATA();
+				time_yellow--;
+				if(time_yellow <= 0){
+					time_yellow = _time_yellow;
+					status_auto = RED1_GREEN2;
+					status_pedestrian = PEDES_2;
 				}
 				break;
-			case RED1:
-				if(count1 > time_yellow){
-					turnOnRedLed1();
-					turnOnGreenLed2();
-				}
-				if(count1 == time_yellow){
+			case PEDES_2:
+				turnOnRedLed1();
+				turnOnGreenLed2();
+				turnOnPesGreenLed();
+				timeOfPhase1 = time_red;
+				timeOfPhase2 = time_green;
+				sendDATA();
+				time_green--;
+				time_red--;
+				if(time_green == 0){
+					turnOffPesLed();
+					time_green = _time_green;
+					status_auto = RED1_YELLOW2;
 					setTimer3(100);
-					turnOnRedLed1();
-					turnOnYellowLed2();
+					status_pedestrian = PEDES_3;
 				}
-				if(count1 <= 0){
+				break;
+			case PEDES_3:
+				turnOnRedLed1();
+				turnOnYellowLed2();
+				timeOfPhase1 = time_red;
+				timeOfPhase2 = time_yellow;
+				sendDATA();
+				time_red--;
+				time_yellow--;
+				if(time_yellow <= 0 || time_red <= 0){
 					turnOnPesRedLed();
-					status1 = GREEN1;
-					status2 = RED2;
-					count1 = time_green;
-					count2 = time_red;
+					status_auto = GREEN1_RED2;
+					timeOfPhase1 = time_green;
+					timeOfPhase2 = time_red;
 					status = AUTOMATIC_MODE;
 				}
 			default:
 				break;
 		}
-		count1--;
-	}
 }

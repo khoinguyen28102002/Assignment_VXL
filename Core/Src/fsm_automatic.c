@@ -9,69 +9,63 @@
 #include "global.h"
 
 void fsm_automatic_run(){
-	sendDATA();
-	switch (status1) {
-		case RED1:
-			turnOnRedLed1();
-			turnOnPesGreenLed();
-			if(count1 <= 0){
-				count1 = time_green;
-				status1 = GREEN1;
-				turnOffAllLed1();
-			}
-			sendDATA();
-			break;
-		case YELLOW1:
-			turnOnYellowLed1();
-			turnOffAllPesLed();
-			if(count1 <= 0){
-				count1 = time_red;
-				status1 = RED1;
-				turnOffAllLed1();
-			}
-			sendDATA();
-			break;
-		case GREEN1:
+	switch (status_auto) {
+		case GREEN1_RED2:
+			turnOnRedLed2();
 			turnOnGreenLed1();
-			turnOnPesRedLed();
-			if(count1 <= 0){
-				count1 = time_yellow;
-				status1 = YELLOW1;
-				turnOffAllLed1();
-			}
+			timeOfPhase1 = time_green;
+			timeOfPhase2 = time_red;
 			sendDATA();
-		default:
-			break;
-	}
-	switch (status2) {
-		case RED2:
-			turnOnGreenLed2();
-			if(count2 <= 0){
-				count2 = time_green;
-				status2 = GREEN2;
-				turnOffAllLed2();
+			time_green--;
+			time_red--;
+			if(time_green <= 0){
+				status_auto = YELLOW1_RED2;
 			}
 			break;
-		case YELLOW2:
+		case YELLOW1_RED2:
+			turnOnYellowLed1();
+			turnOnRedLed2();
+			timeOfPhase1 = time_yellow;
+			timeOfPhase2 = time_red;
+			sendDATA();
+			time_yellow--;
+			time_red--;
+			if(time_yellow <= 0 || time_red <= 0){
+				time_green = _time_green;
+				time_red = _time_red;
+				time_yellow = _time_yellow;
+				status_auto = RED1_GREEN2;
+			}
+			break;
+		case RED1_GREEN2:
+			turnOnRedLed1();
+			turnOnGreenLed2();
+			timeOfPhase1 = time_red;
+			timeOfPhase2 = time_green;
+			sendDATA();
+			time_red--;
+			time_green--;
+			if(time_green <= 0){
+				status_auto = RED1_YELLOW2;
+			}
+			break;
+		case RED1_YELLOW2:
+			turnOnRedLed1();
 			turnOnYellowLed2();
-			if(count2 <= 0){
-				count2 = time_red;
-				status2 = RED2;
-				turnOffAllLed2();
-			}
-			break;
-		case GREEN2:
-			turnOnGreenLed2();
-			if(count2 <= 0){
-				count2 = time_yellow;
-				status2 = YELLOW2;
-				turnOffAllLed2();
+			timeOfPhase1 = time_red;
+			timeOfPhase2 = time_yellow;
+			sendDATA();
+			time_red--;
+			time_yellow--;
+			if(time_yellow <= 0 || time_red <= 0){
+				time_green = _time_green;
+				time_red = _time_red;
+				time_yellow = _time_yellow;
+				status_auto = GREEN1_RED2;
 			}
 			break;
 		default:
 			break;
 	}
-	count1--;
-	count2--;
 }
 

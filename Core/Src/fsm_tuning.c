@@ -13,13 +13,15 @@
 void fsm_tuning_run(){
 	switch (status_tuning) {
 		case TUNING_RED_MODE:
+			turnOnRedLed1();
+			turnOnRedLed2();
 			if(Button2IsPressed()){
 				counter++;
 				sendVALUE_SETTING();
 			}
-			if(timer3_flag){
-				BlinkyAllRedLed();
-				setTimer3(500);
+			if(Button4IsPressed()){
+				counter--;
+				sendVALUE_SETTING();
 			}
 			if(Button1IsPressed()){
 				status = TUNING_YELLOW_MODE;
@@ -28,19 +30,23 @@ void fsm_tuning_run(){
 				turnOffAllLed();
 			}
 			if(Button3IsPressed()){
-				time_red += counter;
+				_time_red += counter;
+				_time_yellow += (int) counter/3;
+				_time_green += counter - ((int) counter/3);
 				counter = 0;
 				status = AUTOMATIC_MODE;
 			}
 			break;
 		case TUNING_YELLOW_MODE:
+			turnOnYellowLed1();
+			turnOnYellowLed2();
 			if(Button2IsPressed()){
 				counter++;
 				sendVALUE_SETTING();
 			}
-			if(timer3_flag){
-				BlinkyAllYellowLed();
-				setTimer3(500);
+			if(Button4IsPressed()){
+				counter--;
+				sendVALUE_SETTING();
 			}
 			if(Button1IsPressed()){
 				status = TUNING_GREEN_MODE;
@@ -49,19 +55,23 @@ void fsm_tuning_run(){
 				turnOffAllLed();
 			}
 			if(Button3IsPressed()){
-				time_yellow += counter;
+				_time_yellow += counter;
+				_time_red += counter*3;
+				_time_green = _time_red - _time_yellow;
 				counter = 0;
 				status = AUTOMATIC_MODE;
 			}
 			break;
 		case TUNING_GREEN_MODE:
+			turnOnGreenLed1();
+			turnOnGreenLed2();
 			if(Button2IsPressed()){
 				counter++;
 				sendVALUE_SETTING();
 			}
-			if(timer3_flag){
-				BlinkyAllGreenLed();
-				setTimer3(500);
+			if(Button4IsPressed()){
+				counter--;
+				sendVALUE_SETTING();
 			}
 			if(Button1IsPressed()){
 				status = TUNING_RED_MODE;
@@ -70,7 +80,9 @@ void fsm_tuning_run(){
 				turnOffAllLed();
 			}
 			if(Button3IsPressed()){
-				time_green += counter;
+				_time_green += counter;
+				_time_yellow += (int) counter/2;
+				_time_red = _time_green + _time_yellow;
 				counter = 0;
 				status = AUTOMATIC_MODE;
 			}

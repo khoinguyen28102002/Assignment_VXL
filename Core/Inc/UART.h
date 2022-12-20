@@ -13,4 +13,5 @@ void sendDATA();
 void sendVALUE_SETTING();
 void sendDATA_Manual();
 
+char buffer_TX[50];
 #endif /* INC_UART_H_ */

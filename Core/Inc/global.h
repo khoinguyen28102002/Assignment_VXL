@@ -20,30 +20,31 @@
 #define MANUAL_MODE 		252
 #define PEDES_MODE			251
 
-#define	RED1				6
-#define	GREEN1				7
-#define YELLOW1				8
-#define RED2				9
-#define GREEN2				10
-#define YELLOW2				11
+#define	RED1_GREEN2			6
+#define	RED1_YELLOW2		7
+#define GREEN1_RED2			8
+#define YELLOW1_RED2		9
 
 #define MANUAL_1			12
 #define MANUAL_2			13
 #define MANUAL_3			14
 #define MANUAL_4			18
 #define MANUAL_0			19
+
 #define TUNING_RED_MODE		15
 #define TUNING_YELLOW_MODE	16
 #define TUNING_GREEN_MODE	17
 
-#define	PEDES_1				27
-#define	PEDES_2				28
-#define	PEDES_3				29
-#define	PEDES_4				30
+#define	PEDES_0				27
+#define	PEDES_1				28
+#define	PEDES_2				29
+#define	PEDES_3				30
 
 int status; // status of all system
 int preStatus;
-int count;  // count is used for scan led in MODIFY MODE
-int counter;// counter is used for scan led in NORMAL MODE
-char buffer_TX[50];
+int status_auto;
+int status_manual;
+int status_tuning;
+int status_pedestrian;
+int counter;
 #endif /* INC_GLOBAL_H_ */
