@@ -25,7 +25,7 @@ int isButtonPress(int index);
 int Button1IsPressed();
 int Button2IsPressed();
 int Button3IsPressed();
-int PesButtonIsPressed();
+int Button4IsPressed();
 void ReadingButton();
 
 #endif /* INC_READING_BUTTON_H_ */

@@ -12,17 +12,16 @@
 int time_red;
 int time_yellow;
 int time_green;
-int time_ped;
-// counter array for each led in row
-int count_red1;
-int count_yellow1;
-int count_green1;
-// counter array for each led in column
-int count_red2;
-int count_yellow2;
-int count_green2;
+// time set for led
 
-int status1; // status of traffic light in row
-int status2; // status of traffic light in column
+int _time_red;
+int _time_yellow;
+int _time_green;
+// counter array for each led in row
+int timeOfPhase1;
+// counter array for each led in column
+int	timeOfPhase2;
+// counter for pedestrian buzzer
+int count_ped_buzzer;
 void init_traffic_light();
 #endif /* INC_TRAFFIC_H_ */

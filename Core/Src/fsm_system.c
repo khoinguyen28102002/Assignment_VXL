@@ -8,6 +8,10 @@
 
 #include "global.h"
 #include "fsm_system.h"
+#include "fsm_automatic.h"
+#include "fsm_manual.h"
+#include "fsm_tuning.h"
+#include "pedestrian.h"
 #include "reading_button.h"
 #include "main.h"
 
@@ -16,34 +20,48 @@ void RunSystem(){
 		case INIT:
 			init_traffic_light();
 			status = AUTOMATIC_MODE;
+			status_auto = GREEN1_RED2;
+			setTimer2(100);
 			break;
 		case AUTOMATIC_MODE:
-			if(Button1IsPressed()){ // If button1 is pressed, turn to MODIFY RED MODE status
-				status = MANUAL_MODE;
+			if(timer2_flag == 1){
+				fsm_automatic_run();
+				setTimer2(1000);
+			}
+			if(Button1IsPressed()){
+				preStatus = status_auto;
 				turnOffAllLed();
+				status = MANUAL_MODE;
+				status_manual = MANUAL_0;
+				setTimer3(100);
+			}
+			if(Button4IsPressed()){
+				preStatus = status_auto;
+				turnOffAllLed();
+				status = PEDES_MODE;
+				setTimer2(100);
 			}
 			break;
 		case MANUAL_MODE:
-			if(Button1IsPressed()){ // If button1 is pressed, turn to MODIFY RED MODE status
+			fsm_manual_run();
+			if(Button1IsPressed()){
 				status = TUNING_MODE;
+				setTimer3(100);
 				turnOffAllLed();
 			}
 			break;
 		case TUNING_MODE:
-			if(Button1IsPressed()){ // If button1 is pressed, turn to MODIFY RED MODE status
+			fsm_tuning_run();
+			if(Button1IsPressed()){
 				status = AUTOMATIC_MODE;
 				turnOffAllLed();
 			}
 			break;
 		case PEDES_MODE:
-			count_red1 = time_red;
-			count_yellow1 = time_yellow;
-			int count_pes_buzzer = 0;
-//			if(!(count_pes_buzzer%1000) && (count_pes_buzzer < time_red*1000)){
-//				__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, count_pes_buzzer/1000);
-//			}else{
-//				count_pes_buzzer++;
-//			}
+			if(timer2_flag){
+				pedestrian_run();
+				setTimer2(1000);
+			}
 			break;
 		default:
 			break;

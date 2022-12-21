@@ -14,6 +14,8 @@ int KeyReg2[NUM_OF_BUTTON] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE, NORMAL_S
 
 int button_flag[NUM_OF_BUTTON] = {0,0,0,0};
 int buttonBuffer[NUM_OF_BUTTON] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
+int counterForButtonPress3s[NUM_OF_BUTTON] = {0,0,0,0};
+int flagForButtonPress3s[NUM_OF_BUTTON] = {0,0,0,0};
 
 void ReadingButton(){
 	for(int i = 0; i < NUM_OF_BUTTON; i++){
@@ -21,16 +23,16 @@ void ReadingButton(){
 		  KeyReg1[i] = KeyReg0[i];
 		  switch (i) {
 			case 0:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTA, BUTTON1_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(A1_GPIO_Port, A1_Pin);
 				break;
 			case 1:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTA, BUTTON2_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(A2_GPIO_Port, A2_Pin);
 				break;
 			case 2:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTB, BUTTON3_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(A3_GPIO_Port, A3_Pin);
 				break;
 			case 3:
-				  KeyReg0[i] = HAL_GPIO_ReadPin(PORTA, PES_BUTTON_Pin);
+				  KeyReg0[i] = HAL_GPIO_ReadPin(A0_GPIO_Port, A0_Pin);
 				break;
 			default:
 				break;
@@ -40,23 +42,22 @@ void ReadingButton(){
 				  buttonBuffer[i] = KeyReg2[i];
 				  if(buttonBuffer[i] == PRESSED_STATE){
 					  button_flag[i] = 1;
-					  if(flagForButtonPress3s[i] == 1){
-						  counterForButtonPress3s[i] = 100;
-					  }
-					  else{
-						  counterForButtonPress3s[i] = 300;
-					  }
+					  counterForButtonPress3s[i] = 300;
 				  }
 				  else {
 					  flagForButtonPress3s[i] = 0;
-					  counterForButtonPress3s[i] = 300;
 				  }
 			  }
 			  else{
 				  counterForButtonPress3s[i]--;
 				  if(counterForButtonPress3s[i] <= 0){
-					  buttonBuffer[i] = NORMAL_STATE;
-					  flagForButtonPress3s[i] = 1;
+					  if(buttonBuffer[i] == PRESSED_STATE){
+						  flagForButtonPress3s[i] = 1;
+					  }
+					  else{
+						  flagForButtonPress3s[i] = 0;
+					  }
+					  counterForButtonPress3s[i] = 300;
 				  }
 			  }
 		  }
@@ -81,6 +82,6 @@ int Button2IsPressed(){
 int Button3IsPressed(){
 	return isButtonPress(2);
 }
-int PesButtionIsPressed(){
+int Button4IsPressed(){
 	return isButtonPress(3);
 }
