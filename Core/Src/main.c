@@ -115,17 +115,17 @@ int main(void)
 		  setTimer1(500);
 	  }
 	  RunSystem();
-	  if(status_pedestrian == PEDES_3){
-		  if(timer3_flag == 1){
-			  if(count_ped_buzzer%10 == 0){
-				  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, count_ped_buzzer);
-			  }
-			  else{
-				  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
-			  }
-			  count_ped_buzzer += 5;
-			  setTimer3(250);
+	  if(status_pedestrian == PEDES_3 && status == PEDES_MODE){
+		  if(timer4_flag){
+			  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, count_ped_buzzer);
+				  count_ped_buzzer += 5;
+				  setTimer4(500);
 		  }
+
+	  }
+	  else {
+		  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
+
 	  }
   }
   /* USER CODE END 3 */

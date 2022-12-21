@@ -27,6 +27,8 @@ void pedestrian_run(){
 				time_yellow--;
 				if(time_yellow <= 0){
 					time_yellow = _time_yellow;
+					time_red = _time_red;
+					time_green = _time_green;
 					status_auto = RED1_GREEN2;
 					status_pedestrian = PEDES_2;
 				}
@@ -44,7 +46,7 @@ void pedestrian_run(){
 					turnOffPesLed();
 					time_green = _time_green;
 					status_auto = RED1_YELLOW2;
-					setTimer3(100);
+					setTimer4(250);
 					status_pedestrian = PEDES_3;
 				}
 				break;
@@ -57,7 +59,10 @@ void pedestrian_run(){
 				time_red--;
 				time_yellow--;
 				if(time_yellow <= 0 || time_red <= 0){
-					turnOnPesRedLed();
+					turnOffPesLed();
+					time_red = _time_red;
+					time_yellow = _time_yellow;
+					time_green = _time_green;
 					status_auto = GREEN1_RED2;
 					timeOfPhase1 = time_green;
 					timeOfPhase2 = time_red;
